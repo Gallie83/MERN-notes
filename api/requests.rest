@@ -1,0 +1,20 @@
+GET http://localhost:3001/notes
+
+###
+
+POST http://localhost:3001/notes/new
+Content-Type: application/json
+
+{
+    "text": "Need milk"
+}
+
+###
+
+DELETE http://localhost:3001/notes/delete/6594ad604fc884a998b06909
+
+###
+
+PUT http://localhost:3001/notes/complete/6594b367be558d3418d39d6b
+
+
