@@ -6,21 +6,24 @@
     bottom: 0;
 }
 
-.notes {
+.threedots:hover {
+    cursor: pointer;
+}
+
+.notes-div {
     background-color: #22303c;
     /* display: flex; */
 }
 
-.notes:hover {
+.notes-div:hover {
     opacity: 0.8;
-    cursor: pointer;
 }
 
-.notes.is-complete .note-body {
+.notes-div.is-complete .note-body {
     text-decoration: line-through;
 }
 
-.notes .delete-note {
+.notes-div .delete-note {
     /* position: absolute; */
     /* right: 16px; */
     /* transform: translateY(-50%); */
