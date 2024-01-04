@@ -37,7 +37,7 @@ app.delete('/notes/delete/:id', async (req, res) => {
 });
 
 // Updates notes completed field 
-app.put('/notes/complete/:id', async (req, res) => {
+app.get('/notes/complete/:id', async (req, res) => {
     const notes = await Notes.findById(req.params.id);
     notes.complete = !notes.complete;
     notes.save();

@@ -6,9 +6,17 @@
     bottom: 0;
 }
 
-.threedots:hover {
+.threedots:hover,
+.closePopup {
     cursor: pointer;
 }
+
+/* Add Note button */
+Button:after {
+    content: "\271A";
+    color: #22303c;
+}
+
 
 .notes-div {
     background-color: #22303c;
