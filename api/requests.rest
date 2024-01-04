@@ -1,7 +1,8 @@
+# Get notes list
 GET http://localhost:3001/notes
 
 ###
-
+# Add new note
 POST http://localhost:3001/notes/new
 Content-Type: application/json
 
@@ -10,11 +11,11 @@ Content-Type: application/json
 }
 
 ###
-
+# Remove selected note
 DELETE http://localhost:3001/notes/delete/6594ad604fc884a998b06909
 
 ###
-
+# Change completed field on selected note
 PUT http://localhost:3001/notes/complete/6594b367be558d3418d39d6b
 
 

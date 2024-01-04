@@ -13,7 +13,7 @@ const CustomToggle = React.forwardRef(({ onClick }, ref) => (
       onClick(e);
     }}
   >
-    <span className="threedots" />
+    <span className="arrow" />
   </a>
 ));
 
@@ -51,6 +51,7 @@ function App() {
     }));
   }
 
+  // Creates a new note
   const addNote = async () => {
     const data = await fetch(API_BASE + "/notes/new", {
       method: "POST",
@@ -78,38 +79,44 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="m-3">My Notes</h1>
+      <h1 className="m-3 ms-5">My Notes</h1>
 
       {/* Add notes button */}
-      <Button variant="light m-3" onClick={() => setPopupActive(true)}>Add Note </Button>
+      <Button variant="light m-3 ms-5" onClick={() => setPopupActive(true)}>Add Note </Button>
 
       {/* Add new note pop up */}
       {popupActive ? (
-        <div className='popup m-3 border rounded p-3 col-4'>
+        <div className='popup m-3 ms-5 border rounded p-3 col-3'>
           <div className='content'>
             <div className='closePopup float-end' onClick={() => setPopupActive(false)}>X</div>
             <h3>New Note</h3>
+            {/* Note text */}
             <input
               type='text'
-              className='add-note-input'
+              className='w-100'
               onChange={e => setNewNotes(e.target.value)}
               value={newNotes} />
-            <input className="btn btn-light p-1 mt-1" type="submit" onClick={addNote} value="Create" />
+            <br />
+            {/* Submit new note */}
+            <input
+              className="btn btn-light p-1 mt-2"
+              type="submit"
+              onClick={addNote}
+              value="Create"
+              disabled={!newNotes} />
           </div>
         </div>
       ) : ''}
 
 
       {/* Current notes displayed here */}
-      <div className="notes row">
+      <div className="notes row mx-auto">
         {notes.map(notes => (
 
           <div className={
-            "notes-div p-3 border border-2 rounded col-5 m-4 "
+            "notes-div p-3 border border-2 rounded col-5 my-4 mx-5 "
             + (notes.complete ? "is-complete" : "")
           } key={notes._id}>
-
-            <div className="note-body ps-5">{notes.text}</div>
 
             {/* Dropdown for notes CRUD functionality  */}
             <Dropdown>
@@ -120,6 +127,10 @@ function App() {
                 <Dropdown.Item onClick={() => deleteNote(notes._id)}>Delete</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+
+            {/* Note content */}
+            <div className="note-body ps-5">{notes.text}</div>
+
           </div>
         ))}
 

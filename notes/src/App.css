@@ -1,12 +1,12 @@
-.threedots:after {
-    /* content: "\2807"; */
+/* Dropdown arrow styling */
+.arrow:after {
     content: "\25bc";
     position: absolute;
-    left: 0;
-    bottom: 0;
+    top: 0;
+    /* display: inline; */
 }
 
-.threedots:hover,
+.arrow:hover,
 .closePopup {
     cursor: pointer;
 }
@@ -17,29 +17,17 @@ Button:after {
     color: #22303c;
 }
 
-
+/* Notes styling */
 .notes-div {
     background-color: #22303c;
-    /* display: flex; */
 }
 
-.notes-div:hover {
-    opacity: 0.8;
-}
-
+/* Completed styling */
 .notes-div.is-complete .note-body {
     text-decoration: line-through;
 }
 
-.notes-div .delete-note {
-    /* position: absolute; */
-    /* right: 16px; */
-    /* transform: translateY(-50%); */
-    background-color: red;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Wraps note content if its too long */
+.note-body {
+    overflow-wrap: break-word;
 }
