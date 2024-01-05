@@ -23,11 +23,12 @@ const API_BASE = "http://localhost:3001";
 function App() {
   const [notes, setNotes] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
-  const [editPopup, setEditPopup] = useState(false);
   const [newNotes, setNewNotes] = useState("");
 
+  const [editPopup, setEditPopup] = useState(false);
   const [editId, setEditId] = useState("");
   const [editedNote, setEditedNote] = useState("");
+
 
   useEffect(() => {
     GetNotes();
@@ -75,9 +76,10 @@ function App() {
   }
 
   // Edit note modal appears and current note Id stores in state
-  const editModal = id => {
+  const editModal = (id, text) => {
     setEditPopup(true);
     setEditId(id);
+    setEditedNote(text);
   }
 
   // Updates note 
@@ -151,7 +153,7 @@ function App() {
             <Dropdown>
               <Dropdown.Toggle as={CustomToggle} />
               <Dropdown.Menu className='dropdown-menu'>
-                <Dropdown.Item onClick={() => editModal(notes._id)}>Edit</Dropdown.Item>
+                <Dropdown.Item onClick={() => editModal(notes._id, notes.text)}>Edit</Dropdown.Item>
                 <Dropdown.Item onClick={() => markCompleted(notes._id)}>Mark as {(notes.complete ? "in" : "")}complete</Dropdown.Item>
                 <Dropdown.Item onClick={() => deleteNote(notes._id)}>Delete</Dropdown.Item>
               </Dropdown.Menu>
@@ -163,6 +165,7 @@ function App() {
           </div>
         ))}
 
+        {/* Edit note Modal */}
         {editPopup ? (
 
           <Modal show={editPopup} >
