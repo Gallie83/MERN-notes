@@ -12,10 +12,17 @@ Content-Type: application/json
 
 ###
 # Remove selected note
-DELETE http://localhost:3001/notes/delete/6594ad604fc884a998b06909
+DELETE http://localhost:3001/notes/delete/
 
 ###
 # Change completed field on selected note
-PUT http://localhost:3001/notes/complete/6594b367be558d3418d39d6b
+PUT http://localhost:3001/notes/complete/
 
+###
+# Edit existing note
+PUT http://localhost:3001/notes/edit/
+Content-Type: application/json
 
+{
+    "text": "Need less bread"
+}

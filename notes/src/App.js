@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './App.css';
+import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Dropdown from "react-bootstrap/Dropdown";
 
@@ -22,12 +23,16 @@ const API_BASE = "http://localhost:3001";
 function App() {
   const [notes, setNotes] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
+  const [editPopup, setEditPopup] = useState(false);
   const [newNotes, setNewNotes] = useState("");
+
+  const [editId, setEditId] = useState("");
+  const [editedNote, setEditedNote] = useState("");
 
   useEffect(() => {
     GetNotes();
-    console.log(notes);
-  }, [])
+    // console.log(notes);
+  }, [notes])
 
   // Fetchs notes from database
   const GetNotes = () => {
@@ -42,6 +47,7 @@ function App() {
     const data = await fetch(API_BASE + "/notes/complete/" + id)
       .then(res => res.json())
 
+    // Iterates through notes until id matches
     setNotes(notes => notes.map(notes => {
       if (notes._id === data._id) {
         notes.complete = data.complete;
@@ -66,6 +72,29 @@ function App() {
     setNotes([...notes, data]);
     setPopupActive(false);
     setNewNotes("");
+  }
+
+  // Edit note modal appears and current note Id stores in state
+  const editModal = id => {
+    setEditPopup(true);
+    setEditId(id);
+  }
+
+  // Updates note 
+  const editNote = async () => {
+    const data = await fetch(API_BASE + "/notes/edit/" + editId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        text: editedNote
+      })
+    }).then(res => res.json());
+
+    setNotes([...notes, data]);
+    setEditPopup(false);
+    setEditedNote("");
   }
 
   // Deletes selected note
@@ -122,7 +151,7 @@ function App() {
             <Dropdown>
               <Dropdown.Toggle as={CustomToggle} />
               <Dropdown.Menu className='dropdown-menu'>
-                <Dropdown.Item>Edit</Dropdown.Item>
+                <Dropdown.Item onClick={() => editModal(notes._id)}>Edit</Dropdown.Item>
                 <Dropdown.Item onClick={() => markCompleted(notes._id)}>Mark as {(notes.complete ? "in" : "")}complete</Dropdown.Item>
                 <Dropdown.Item onClick={() => deleteNote(notes._id)}>Delete</Dropdown.Item>
               </Dropdown.Menu>
@@ -133,6 +162,32 @@ function App() {
 
           </div>
         ))}
+
+        {editPopup ? (
+
+          <Modal show={editPopup} >
+            <div className=' bg-dark text-light border rounded p-3'>
+              <div className='content'>
+                <div className='closePopup float-end' onClick={() => setEditPopup(false)}>X</div>
+                <h3>Edit Note</h3>
+                {/* Note text */}
+                <input
+                  type='text'
+                  className='w-100'
+                  onChange={e => setEditedNote(e.target.value)}
+                  value={editedNote} />
+                <br />
+                {/* Submit updated note */}
+                <input
+                  className="btn btn-light p-1 mt-2"
+                  type="submit"
+                  onClick={editNote}
+                  value="Update"
+                  disabled={!editedNote} />
+              </div>
+            </div>
+          </Modal>
+        ) : ''}
 
       </div>
     </div>
