@@ -1,6 +1,7 @@
 /* Dropdown arrow styling */
 .arrow:after {
     content: "\25bc";
+    color: white;
     position: absolute;
     top: 0;
     /* display: inline; */

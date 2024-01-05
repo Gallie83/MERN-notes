@@ -8,6 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 // Dropdown menu 
 const CustomToggle = React.forwardRef(({ onClick }, ref) => (
   <a
+    href='/'
     ref={ref}
     onClick={e => {
       e.preventDefault();
@@ -75,17 +76,20 @@ function App() {
     setNewNotes("");
   }
 
-  // Edit note modal appears and current note Id stores in state
+  // Edit note modal appears and current note Id and old text stored in state
   const editModal = (id, text) => {
     setEditPopup(true);
     setEditId(id);
     setEditedNote(text);
   }
 
-  // Updates note 
+  // Update note- was receiving and error message about unique ID
+  // when updating current note, so now the original is deleted and
+  // a new note is created when user edits 
   const editNote = async () => {
-    const data = await fetch(API_BASE + "/notes/edit/" + editId, {
-      method: "PUT",
+    deleteNote(editId);
+    const data = await fetch(API_BASE + "/notes/new", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -98,6 +102,7 @@ function App() {
     setEditPopup(false);
     setEditedNote("");
   }
+
 
   // Deletes selected note
   const deleteNote = async id => {

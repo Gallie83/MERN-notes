@@ -5,11 +5,6 @@ GET http://localhost:3001/notes
 # Add new note
 POST http://localhost:3001/notes/new
 Content-Type: application/json
-
-{
-    "text": "Need milk"
-}
-
 ###
 # Remove selected note
 DELETE http://localhost:3001/notes/delete/
@@ -17,12 +12,3 @@ DELETE http://localhost:3001/notes/delete/
 ###
 # Change completed field on selected note
 PUT http://localhost:3001/notes/complete/
-
-###
-# Edit existing note
-PUT http://localhost:3001/notes/edit/
-Content-Type: application/json
-
-{
-    "text": "Need less bread"
-}

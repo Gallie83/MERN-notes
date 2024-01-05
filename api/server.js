@@ -44,13 +44,5 @@ app.get('/notes/complete/:id', async (req, res) => {
     res.json(notes);
 })
 
-// Edit existing note
-app.put('/notes/edit/:id', async (req, res) => {
-    const notes = await Notes.findById(req.params.id);
-    notes.text = req.body.text
-    notes.save();
-    res.json(notes);
-})
-
 // Starts server on local port 3001 and logs success message
 app.listen(3001, () => console.log("Server started on port 3001"));
