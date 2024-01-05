@@ -33,7 +33,6 @@ function App() {
 
   useEffect(() => {
     GetNotes();
-    // console.log(notes);
   }, [notes])
 
   // Fetchs notes from database
@@ -102,7 +101,6 @@ function App() {
     setEditPopup(false);
     setEditedNote("");
   }
-
 
   // Deletes selected note
   const deleteNote = async id => {

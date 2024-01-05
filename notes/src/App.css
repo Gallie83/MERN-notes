@@ -4,7 +4,6 @@
     color: white;
     position: absolute;
     top: 0;
-    /* display: inline; */
 }
 
 .arrow:hover,
@@ -13,7 +12,7 @@
 }
 
 /* Add Note button */
-Button:after {
+.add-note:after {
     content: "\271A";
     color: #22303c;
 }
